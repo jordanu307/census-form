@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light only">
+<title>Our Proposed 2030 Census Form</title>
+<style>
+  :root { color-scheme: light only; --ink:#111; --sub:#3b4250; --gray:#6b7280; --line:#c9ced6; --soft:#eef0f3; --blue:#2a78d6; --blueD:#1b5fae; --blueL:#e8f1fc; --navy:#1f3864; --orange:#eb6834; --tagbg:#cc4a14; --btn:#2270cc; --sky:#39b8e6; }
+  * { box-sizing:border-box; }
+  html, body { background:#f3f5f8; }
+  body { margin:0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color:var(--ink); line-height:1.4; }
+  .bg { background:#f3f5f8; min-height:100vh; color:var(--ink); }
+  .wrap { max-width:680px; margin:0 auto; padding:18px 14px 40px; color:var(--ink); }
+
+  .top h1 { font-size:22px; margin:0; color:var(--ink); }
+  .top p { margin:2px 0 0; font-size:13px; color:var(--sub); }
+
+  /* scam box: same look as slide 18 */
+  .scam { background:#fff; border:3px solid var(--navy); margin-top:16px; color:var(--ink); }
+  .scam .head { background:var(--navy); color:#fff; padding:12px 16px; font-size:18px; font-weight:700; display:flex; justify-content:space-between; align-items:center; gap:10px; }
+  .tag { background:var(--tagbg); color:#fff; font-size:11px; font-weight:700; letter-spacing:.06em; padding:3px 7px; border-radius:3px; white-space:nowrap; }
+  .scam ol { list-style:none; margin:0; padding:14px 16px 16px; }
+  .scam li { display:flex; gap:12px; margin:0 0 12px; font-size:15.5px; line-height:1.35; color:var(--ink); }
+  .scam li:last-child { margin-bottom:0; }
+  .scam .ic { flex:0 0 28px; height:28px; border-radius:50%; background:#e3f4fc; border:2px solid var(--sky); color:var(--navy); font-weight:800; font-size:14px; display:flex; align-items:center; justify-content:center; }
+  .scam .no { background:#fdebe4; border-color:var(--orange); color:#b4431a; }
+
+  /* form cards: same look as slide 17 */
+  .card { background:#fff; border:2px solid var(--line); border-radius:14px; padding:20px 18px; margin-top:16px; color:var(--ink); }
+  .card h2 { font-size:21px; margin:0 0 4px; color:var(--ink); }
+  .card .sub { font-size:15px; color:var(--sub); margin:0 0 4px; }
+  .qn { padding:18px 0 0; margin-top:18px; border-top:1px solid var(--soft); }
+  .card h2 + .qn, .card .sub + .qn { border-top:none; margin-top:4px; padding-top:8px; }
+  .qt { font-size:18px; font-weight:700; margin:0 0 4px; color:var(--ink); }
+  .qt .num { margin-right:4px; }
+  .hint { font-size:15px; color:var(--sub); margin:0 0 12px; }
+  .hint b { color:var(--ink); }
+
+  .opt { display:flex; align-items:flex-start; gap:12px; font-size:17px; color:var(--ink); padding:6px 0; cursor:pointer; }
+  .opt span { padding-top:1px; color:var(--ink); }
+  .cols { columns:2; column-gap:22px; }
+  .cols .opt { break-inside:avoid; }
+  @media (max-width:560px){ .cols { columns:1; } }
+
+  input[type=checkbox], input[type=radio] { -webkit-appearance:none; appearance:none; flex:0 0 24px; width:24px; height:24px; margin:0; border:2px solid var(--gray); background:#fff; cursor:pointer; display:inline-block; }
+  input[type=checkbox] { border-radius:5px; }
+  input[type=radio] { border-radius:50%; }
+  input[type=checkbox]:checked { background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/18px no-repeat; border-color:var(--blue); }
+  input[type=radio]:checked { border-color:var(--blue); background:var(--blue); box-shadow:inset 0 0 0 4px #fff; }
+  input[type=checkbox]:focus-visible, input[type=radio]:focus-visible { outline:3px solid rgba(42,120,214,.35); outline-offset:2px; }
+
+  .row { display:flex; gap:10px; flex-wrap:wrap; }
+  .field { display:flex; flex-direction:column; font-size:14px; color:var(--sub); gap:5px; }
+  .field .row { flex-wrap:nowrap; align-items:center; color:var(--sub); }
+  input[type=text], input[type=tel], input[type=number] { font-family:inherit; font-size:17px; color:#111; -webkit-text-fill-color:#111; caret-color:#111; background:#fff; border:2px solid var(--line); border-radius:8px; padding:10px 12px; width:100%; }
+  input[type=text]:focus, input[type=tel]:focus, input[type=number]:focus { outline:none; border-color:var(--blue); box-shadow:0 0 0 3px rgba(42,120,214,.15); }
+  input.w-num { width:96px; } input.w-mi { width:64px; } .w-grow { flex:1 1 200px; }
+
+  details.guide { margin:0 0 12px; font-size:15px; color:var(--ink); }
+  details.guide summary { cursor:pointer; font-weight:700; color:var(--blueD); }
+  details.guide ul { margin:8px 0 0; padding-left:20px; color:var(--ink); }
+  details.guide li { margin:0 0 4px; }
+
+  .banner { display:flex; gap:10px; align-items:flex-start; background:var(--blueL); border:1.5px solid var(--blue); border-radius:8px; padding:10px 14px; font-size:15px; color:var(--ink); margin:0 0 10px; }
+  .banner b { color:var(--blueD); }
+  .race .opt { font-size:18px; padding:7px 0; }
+  .race .opt .tag { margin-left:8px; vertical-align:2px; color:#fff; }
+  .writein { margin:2px 0 8px 36px; position:relative; }
+  .writein .lab { font-size:14px; color:var(--sub); margin:0 0 6px; }
+  .menu { position:absolute; left:0; right:0; z-index:5; background:#fff; border:1.5px solid var(--line); border-top:none; border-radius:0 0 8px 8px; box-shadow:0 6px 14px rgba(0,0,0,.08); overflow:hidden; }
+  .menu button { display:block; width:100%; text-align:left; border:none; border-top:1px solid var(--soft); background:#fff; color:#111; font-family:inherit; font-size:17px; font-weight:400; padding:10px 12px; cursor:pointer; }
+  .menu button:first-child { background:#f1f6fd; }
+  .menu button:hover, .menu button:focus { background:#e3eefc; outline:none; }
+  .menu button b { font-weight:700; color:#111; }
+  .menu .foot { border-top:1px solid var(--soft); padding:8px 12px; font-size:13px; color:var(--gray); background:#fff; }
+
+  .short { border:1.5px solid var(--line); border-radius:10px; padding:14px; margin-top:14px; color:var(--ink); }
+  .short h3 { margin:0 0 10px; font-size:17px; color:var(--ink); }
+  .short .lbl { font-size:14px; color:var(--sub); margin:10px 0 0; }
+
+  .err { color:#b3261e; font-size:15px; margin:8px 0 0; }
+  .err:empty { display:none; }
+  .btn { display:block; width:100%; margin-top:18px; padding:15px; font-family:inherit; font-size:18px; font-weight:700; border:none; border-radius:8px; background:var(--btn); color:#fff; cursor:pointer; }
+  .thanks h2 { margin:0; }
+  footer { margin-top:26px; font-size:12px; color:#5b6270; text-align:center; }
+  [hidden] { display:none !important; }
+</style>
+</head>
+<body>
+<div class="bg">
+<div class="wrap">
+  <div class="top">
+    <h1>Our proposed 2030 Census form</h1>
+    <p>Class project mock-up. Not the real census.</p>
+  </div>
+
+  <section class="scam" id="scam" aria-label="Is this the real census?">
+    <div class="head"><span>Is this the real census? Check here.</span><span class="tag">NEW BOX</span></div>
+    <ol>
+      <li><span class="ic">1</span><span>The only website for answering is printed on this page, and it ends in <b>.gov</b>.</span></li>
+      <li><span class="ic no">✕</span><span>We will <b>never</b> ask for your full Social Security number, bank or card numbers, money, your mother's maiden name, or anything for a political party.</span></li>
+      <li><span class="ic">2</span><span>By law, your answers are used <b>only for statistics</b> and cannot be shared with immigration or law enforcement agencies.</span></li>
+      <li><span class="ic">3</span><span>Not sure about an email, text, call or visitor? Call the number on this page to check before you answer.</span></li>
+    </ol>
+  </section>
+
+  <form id="form" autocomplete="off" novalidate></form>
+
+  <div class="card thanks" id="thanks" hidden><h2>Response submitted.</h2></div>
+
+  <footer>Made with a generative AI tool.</footer>
+</div>
+</div>
+
+<script>
+const RACE = [
+  { id:'white', name:'White', lab:'Type your origin (for example, German, Irish, English, Italian, Polish, French)',
+    s:['German','Irish','English','Italian','Polish','French','Scottish','Norwegian','Dutch','Swedish','Russian','Ukrainian','Greek','Portuguese'] },
+  { id:'hisp', name:'Hispanic or Latino', isNew:true, lab:'Type your origin (for example, Mexican, Puerto Rican, Salvadoran, Cuban, Dominican, Colombian)',
+    s:['Mexican','Mexican American','Chicano','Puerto Rican','Salvadoran','Cuban','Dominican','Colombian','Afro-Colombian','Guatemalan','Honduran','Ecuadorian','Peruvian','Venezuelan','Nicaraguan','Argentinian','Panamanian','Chilean','Costa Rican','Bolivian','Spaniard'] },
+  { id:'black', name:'Black or African American', lab:'Type your origin (for example, African American, Jamaican, Haitian, Nigerian, Ethiopian, Somali)',
+    s:['African American','Jamaican','Haitian','Nigerian','Ethiopian','Somali','Ghanaian','Kenyan','Trinidadian','Barbadian','Liberian','Cameroonian','Congolese','Eritrean','Senegalese'] },
+  { id:'asian', name:'Asian', lab:'Type your origin (for example, Chinese, Asian Indian, Filipino, Vietnamese, Korean, Japanese)',
+    s:['Chinese','Asian Indian','Filipino','Vietnamese','Korean','Japanese','Pakistani','Cambodian','Hmong','Laotian','Thai','Bangladeshi','Nepalese','Burmese','Taiwanese','Indonesian','Sri Lankan'] },
+  { id:'aian', name:'American Indian or Alaska Native', lab:'Type the name of your enrolled or principal tribe(s) (for example, Navajo Nation, Blackfeet Tribe, Mayan, Aztec, Nome Eskimo Community)',
+    s:['Navajo Nation','Cherokee','Blackfeet Tribe','Choctaw','Chippewa','Sioux','Apache','Lumbee','Pueblo','Mayan','Aztec','Nome Eskimo Community'] },
+  { id:'mena', name:'Middle Eastern or North African', isNew:true, lab:'Type your origin (for example, Lebanese, Iranian, Egyptian, Syrian, Moroccan, Israeli)',
+    s:['Lebanese','Iranian','Egyptian','Syrian','Moroccan','Israeli','Iraqi','Palestinian','Jordanian','Yemeni','Algerian','Tunisian','Libyan','Saudi','Kurdish'] },
+  { id:'nhpi', name:'Native Hawaiian or Pacific Islander', lab:'Type your origin (for example, Native Hawaiian, Samoan, Chamorro, Tongan, Fijian, Marshallese)',
+    s:['Native Hawaiian','Samoan','Chamorro','Tongan','Fijian','Marshallese','Palauan','Tahitian','Chuukese'] },
+  { id:'other', name:'Another race or ethnicity', lab:'Type your race or ethnicity', s:[] },
+];
+const ELSEWHERE = ['No','Yes, for college','Yes, for a military assignment','Yes, for a job or business','Yes, in a nursing home','Yes, with a parent or other relative','Yes, at a seasonal or second residence','Yes, in a jail or prison','Yes, for another reason'];
+const RELATION = ['Opposite-sex husband/wife/spouse','Opposite-sex unmarried partner','Same-sex husband/wife/spouse','Same-sex unmarried partner','Biological son or daughter','Adopted son or daughter','Stepson or stepdaughter','Brother or sister','Father or mother','Grandchild','Parent-in-law','Son-in-law or daughter-in-law','Other relative','Roommate or housemate','Foster child','Other nonrelative'];
+const ADDL = ['Children, related or unrelated, such as newborn babies, grandchildren, or foster children','Relatives, such as adult children, cousins, or in-laws','Nonrelatives, such as roommates or live-in babysitters','People staying here temporarily','No additional people'];
+const TENURE = ['Owned by you or someone in this household with a mortgage or loan? Include home equity loans.','Owned by you or someone in this household free and clear (without a mortgage or loan)?','Rented?','Occupied without payment of rent?'];
+const MAXFULL = 6, MAXALL = 10;
+
+function esc(t){ const d=document.createElement('div'); d.textContent=t==null?'':String(t); return d.innerHTML; }
+function opts(name, list, type, cols){ return '<div class="'+(cols?'cols':'')+'">'+list.map((o,i)=>'<label class="opt"><input type="'+type+'" name="'+name+'" value="'+i+'"><span>'+esc(o)+'</span></label>').join('')+'</div>'; }
+function nameFields(p){ return '<div class="row"><label class="field w-grow">First name<input type="text" id="'+p+'-first"></label><label class="field">MI<input type="text" class="w-mi" id="'+p+'-mi" maxlength="1"></label></div><div class="row" style="margin-top:10px"><label class="field w-grow">Last name(s)<input type="text" id="'+p+'-last"></label></div>'; }
+function ageFields(p){ return '<label class="field">Age on April 1, 2030<span class="row"><input type="number" inputmode="numeric" min="0" max="120" class="w-num" id="'+p+'-age"> years</span></label><div class="row" style="margin-top:10px"><label class="field">Month<input type="number" inputmode="numeric" min="1" max="12" class="w-num" id="'+p+'-mm"></label><label class="field">Day<input type="number" inputmode="numeric" min="1" max="31" class="w-num" id="'+p+'-dd"></label><label class="field">Year of birth<input type="number" inputmode="numeric" min="1900" max="2030" class="w-num" id="'+p+'-yy"></label></div>'; }
+const AGEHINT = '<p class="hint">For babies less than 1 year old, do not write the age in months. Write 0 as the age.</p>';
+function q(num, text){ return '<p class="qt"><span class="num">'+num+'.</span>'+text+'</p>'; }
+function raceQ(p, num, who){
+  return '<div class="qn race">'+q(num, 'What is '+who+' race or ethnicity?')+
+    '<p class="hint"><b>Select all that apply</b>, then type your specific origins.</p>'+
+    '<div class="banner"><span>ⓘ</span><span><b>You can choose more than one.</b> Many people check two or more boxes.</span></div>'+
+    RACE.map(b=>'<label class="opt"><input type="checkbox" id="'+p+'-cb-'+b.id+'"><span>'+esc(b.name)+(b.isNew?'<span class="tag">NEW BOX</span>':'')+'</span></label>'+
+      '<div class="writein" id="'+p+'-wf-'+b.id+'" hidden><div class="lab">'+esc(b.lab)+'</div><input type="text" id="'+p+'-wi-'+b.id+'" aria-label="'+esc(b.lab)+'"><div class="menu" id="'+p+'-sg-'+b.id+'" hidden></div></div>').join('')+
+    '</div>';
+}
+
+let html =
+  '<div class="card"><h2>Household</h2>'+
+  '<div class="qn">'+q(1,'How many people were living or staying in this house, apartment, or mobile home on April 1, 2030?')+
+  '<details class="guide"><summary>Who to count</summary><ul>'+
+  '<li>Count all people, including babies, who live and sleep here most of the time.</li>'+
+  '<li>If someone who does not have a permanent place to live is staying here on April 1, 2030, count that person.</li>'+
+  '<li>Do not count anyone living away from here, either at college or in the Armed Forces.</li>'+
+  '<li>Do not count anyone in a nursing home, jail, prison, detention facility, etc., on April 1, 2030.</li>'+
+  '<li>Leave these people off your questionnaire, even if they will return to live here later. Otherwise, they may be counted twice.</li></ul></details>'+
+  '<label class="field">Number of people<input type="number" inputmode="numeric" min="1" max="99" class="w-num" id="hh-count"></label><p class="err" id="hh-err" role="alert"></p></div>'+
+  '<div class="qn">'+q(2,'Were there any additional people staying here on April 1, 2030 that you did not include in Question 1?')+'<p class="hint">Select all that apply.</p>'+opts('hh-addl', ADDL, 'checkbox')+'</div>'+
+  '<div class="qn">'+q(3,'Is this house, apartment, or mobile home:')+'<p class="hint">Select ONE.</p>'+opts('hh-tenure', TENURE, 'radio')+'</div>'+
+  '<div class="qn">'+q(4,'What is your telephone number?')+'<p class="hint">We will only contact you if needed for official Census Bureau business.</p><label class="field">Telephone number<input type="tel" id="hh-phone"></label></div>'+
+  '</div>'+
+
+  '<div class="card" id="sec-p1"><h2>Person 1</h2>'+
+  '<div class="qn">'+q(5,'Please provide information for each person living here. If there is someone living here who pays the rent or owns this residence, start by listing him or her as Person 1. If the owner or the person who pays the rent does not live here, start by listing any adult living here as Person 1.')+'<p class="hint"><b>What is Person 1\'s name?</b></p>'+nameFields('p1')+'</div>'+
+  '<div class="qn">'+q(6,'What is Person 1\'s sex?')+'<p class="hint">Select ONE.</p>'+opts('p1-sex',['Male','Female'],'radio')+'</div>'+
+  '<div class="qn">'+q(7,'What is Person 1\'s age and what is Person 1\'s date of birth?')+AGEHINT+ageFields('p1')+'</div>'+
+  raceQ('p1', 8, "Person 1's")+'</div>';
+
+for (let n=2; n<=MAXFULL; n++){
+  const p='p'+n;
+  html += '<div class="card" id="sec-'+p+'" hidden><h2>Person '+n+'</h2>'+
+    '<div class="qn">'+q(1,'Print name of Person '+n)+nameFields(p)+'</div>'+
+    '<div class="qn">'+q(2,'Does this person usually live or stay somewhere else?')+'<p class="hint">Select all that apply.</p>'+opts(p+'-else', ELSEWHERE, 'checkbox', true)+'</div>'+
+    '<div class="qn">'+q(3,'How is this person related to <span class="p1n">Person 1</span>?')+'<p class="hint">Select ONE.</p>'+opts(p+'-rel', RELATION, 'radio', true)+'</div>'+
+    '<div class="qn">'+q(4,'What is this person\'s sex?')+'<p class="hint">Select ONE.</p>'+opts(p+'-sex',['Male','Female'],'radio')+'</div>'+
+    '<div class="qn">'+q(5,'What is this person\'s age and what is this person\'s date of birth?')+AGEHINT+ageFields(p)+'</div>'+
+    raceQ(p, 6, "this person's")+'</div>';
+}
+
+html += '<div class="card" id="sec-extra" hidden><h2>Persons 7–10</h2><p class="sub">Use this section to complete information for the rest of the people you counted in Question 1. We may call for additional information about them.</p>';
+for (let n=MAXFULL+1; n<=MAXALL; n++){
+  const p='p'+n;
+  html += '<div class="short" id="sec-'+p+'" hidden><h3>Person '+n+'</h3>'+nameFields(p)+
+    '<p class="lbl">Sex</p>'+opts(p+'-sex',['Male','Female'],'radio')+'<div style="margin-top:8px">'+ageFields(p)+'</div>'+
+    '<p class="lbl">Related to Person 1?</p>'+opts(p+'-relyn',['Yes','No'],'radio')+'</div>';
+}
+html += '</div><button class="btn" type="submit">Submit</button>';
+
+const form = document.getElementById('form');
+form.innerHTML = html;
+const $ = id => document.getElementById(id);
+
+// race boxes: checking a box opens its write-in line; typing suggests spellings, even with typos
+const norm = t => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/-/g,' ').replace(/[^a-z ]/g,'');
+function dist(a, b){            // edit distance that also counts swapped letters
+  const d = []; for (let i=0;i<=a.length;i++){ d[i]=[i]; } for (let j=0;j<=b.length;j++) d[0][j]=j;
+  for (let i=1;i<=a.length;i++) for (let j=1;j<=b.length;j++){
+    const c = a[i-1]===b[j-1] ? 0 : 1;
+    d[i][j] = Math.min(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1]+c);
+    if (i>1 && j>1 && a[i-1]===b[j-2] && a[i-2]===b[j-1]) d[i][j] = Math.min(d[i][j], d[i-2][j-2]+1);
+  }
+  return d[a.length][b.length];
+}
+function suggest(typed, list){
+  const t = norm(typed).trim(); const L = t.length;
+  if (!L) return [];
+  const allow = L<=3 ? 0 : L<=5 ? 1 : L<=8 ? 2 : 3;
+  const scored = [];
+  list.forEach(w => {
+    const n = norm(w), words = n.split(' ');
+    let score = null, at = -1;
+    if (n.startsWith(t)) { score = 0; at = 0; }
+    else if (words.some(x => x.startsWith(t))) { score = 1; at = n.indexOf(' '+t)+1; }
+    else if (L>=2 && n.includes(t)) { score = 2; at = n.indexOf(t); }
+    else if (L>=4) {
+      let best = dist(t, n);
+      for (let k=Math.max(1,L-1); k<=L+1; k++) best = Math.min(best, dist(t, n.slice(0,k)));
+      words.forEach(x => { best = Math.min(best, dist(t, x)); for (let k=Math.max(1,L-1); k<=L+1; k++) best = Math.min(best, dist(t, x.slice(0,k))); });
+      if (best <= allow) score = 3 + best;
+    }
+    if (score !== null) scored.push({ w, score, at: (n.length===w.length ? at : -1), len: L });
+  });
+  return scored.sort((a,b) => a.score-b.score || a.w.length-b.w.length).slice(0,5);
+}
+const ALLWORDS = [...new Set(RACE.flatMap(b => b.s))];
+
+for (let n=1; n<=MAXFULL; n++){
+  const p='p'+n;
+  RACE.forEach(b => {
+    const cb=$(p+'-cb-'+b.id), wf=$(p+'-wf-'+b.id), input=$(p+'-wi-'+b.id), sg=$(p+'-sg-'+b.id);
+    const list = b.s.length ? b.s : ALLWORDS;
+    cb.addEventListener('change', () => { wf.hidden = !cb.checked; });
+    const hide = () => { sg.hidden = true; sg.textContent=''; };
+    const show = () => {
+      const parts = input.value.split(','); const cur = parts[parts.length-1].trim();
+      const hits = suggest(cur, list).filter(h => h.w !== cur);
+      if (!hits.length) { hide(); return; }
+      sg.textContent = '';
+      hits.forEach(h => {
+        const btn = document.createElement('button'); btn.type='button';
+        if (h.at >= 0 && h.score <= 2) { const bb=document.createElement('b'); bb.textContent=h.w.slice(h.at,h.at+h.len); btn.append(h.w.slice(0,h.at), bb, h.w.slice(h.at+h.len)); }
+        else btn.textContent = h.w;
+        const pick = e => { e.preventDefault(); parts[parts.length-1] = (parts.length>1?' ':'') + h.w; input.value = parts.join(','); hide(); };
+        btn.addEventListener('pointerdown', e => e.preventDefault());
+        btn.addEventListener('mousedown', e => e.preventDefault());
+        btn.addEventListener('click', pick);
+        sg.appendChild(btn);
+      });
+      const f = document.createElement('div'); f.className='foot'; f.textContent='Not listed? Keep typing. Your own words are accepted.';
+      sg.appendChild(f);
+      sg.hidden = false;
+    };
+    input.addEventListener('input', show);
+    input.addEventListener('focus', show);
+    input.addEventListener('blur', () => setTimeout(hide, 200));
+  });
+}
+
+// Person 1's name in the relationship questions
+$('p1-first').addEventListener('input', () => {
+  const f = $('p1-first').value.trim();
+  document.querySelectorAll('.p1n').forEach(x => x.textContent = f || 'Person 1');
+});
+
+// one section per person counted in Question 1
+function showPeople(){
+  const v = parseInt($('hh-count').value, 10) || 1;
+  const c = Math.min(Math.max(v,1), MAXALL);
+  for (let n=2; n<=MAXALL; n++) $('sec-p'+n).hidden = n > c;
+  $('sec-extra').hidden = c <= MAXFULL;
+  $('hh-err').textContent = v > MAXALL ? 'This form has room for '+MAXALL+' people.' : '';
+}
+$('hh-count').addEventListener('input', showPeople);
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const v = parseInt($('hh-count').value, 10);
+  if (!v || v < 1) {
+    $('hh-err').textContent = 'Please answer Question 1.';
+    $('hh-count').scrollIntoView({ block:'center' }); $('hh-count').focus();
+    return;
+  }
+  form.hidden = true; $('scam').hidden = true; $('thanks').hidden = false;
+  window.scrollTo(0,0);
+});
+</script>
+</body>
+</html>
